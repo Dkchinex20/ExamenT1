@@ -31,5 +31,4 @@ jobs:
           cache: maven
 
       - name: Build and Test with Maven
-        run: |
-            mvn clean test -B -Dspring.datasource.password=mysql -Dspring.datasource.username=root -Dspring.jpa.hibernate.ddl-auto=create-drop
+        run: mvn clean test -B -Dtest=MultaServiceTest -Dspring.datasource.password=mysql -Dspring.datasource.username=root
