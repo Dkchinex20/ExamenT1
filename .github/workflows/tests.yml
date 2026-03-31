@@ -31,4 +31,4 @@ jobs:
           cache: maven
 
       - name: Build and Test with Maven
-        run: mvn -B test -Dspring.datasource.password=root -Dspring.datasource.username=root
+        run: mvn -B test -Dspring.datasource.password=mysql -Dspring.datasource.username=root
