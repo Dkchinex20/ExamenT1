@@ -32,9 +32,4 @@ jobs:
 
       - name: Build and Test with Maven
         run: |
-            # Esperar a que MySQL esté listo antes de testear
-            until mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
-              echo "Esperando a MySQL..."
-              sleep 2
-            done
-            mvn -B test -Dspring.datasource.url=jdbc:mysql://localhost:3306/infracciones_db -Dspring.datasource.username=root -Dspring.datasource.password=mysql
+            mvn clean test -B -Dspring.datasource.password=mysql -Dspring.datasource.username=root -Dspring.jpa.hibernate.ddl-auto=create-drop
