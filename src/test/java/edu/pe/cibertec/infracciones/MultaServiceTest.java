@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class) // Esto activa Mockito
+@ExtendWith(MockitoExtension.class)
 class MultaServiceTest {
 
     @Mock
@@ -32,7 +32,7 @@ class MultaServiceTest {
 
     @Test
     void testPregunta4_TransferirMulta_InfractorBloqueado() {
-        // GIVEN: Preparamos los datos (Id 1L y Infractor bloqueado)
+
         Long multaId = 1L;
         Long infractorIdB = 2L;
 
@@ -42,19 +42,15 @@ class MultaServiceTest {
 
         Infractor infractorB = new Infractor();
         infractorB.setId(infractorIdB);
-        infractorB.setBloqueado(true); // <--- Requisito: Bloqueado = true
+        infractorB.setBloqueado(true);
 
-        // Configuramos los simulacros (Mocks)
         when(multaRepository.findById(multaId)).thenReturn(Optional.of(multa));
         when(infractorRepository.findById(infractorIdB)).thenReturn(Optional.of(infractorB));
 
-        // WHEN & THEN: Ejecutamos y verificamos que salta la excepción
         assertThrows(InfractorBloqueadoException.class, () -> {
             multaService.transferirMulta(multaId, infractorIdB);
         });
 
-        // VERIFY: Verificamos que el repositorio NUNCA llamó a save()
-        // porque la excepción detuvo el proceso.
         verify(multaRepository, never()).save(any(Multa.class));
     }
 }
